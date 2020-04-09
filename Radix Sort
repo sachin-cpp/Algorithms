@@ -1,0 +1,61 @@
+//there is one garbage value error.!!!!!!!!
+#include<iostream>
+#include<math.h>
+using namespace std;
+
+int radix(int arr[],int n,int x)
+{
+    if(x==0)
+    {
+        return 0;
+    }
+    int div = pow(10,3-x);
+    int count[10]={0};
+    for(int i=0;i<n;i++)
+    {
+        int a = (arr[i]/div)%10;
+        count[a]++;
+    }
+    for(int i=1;i<10;i++)
+    {
+        count[i] += count[i-1];
+    }
+    
+    int arr1[n] = {0};
+    for(int i=n;i>=0;i--)
+    {
+            int a= (arr[i]/div)%10;
+            count[a]--;
+            int b = count[a];
+            arr1[b] = arr[i];
+    }
+    
+    for(int i=0;i<n;i++)
+    {
+        cout<<arr1[i]<<" ";
+    }
+    cout<<endl;
+    radix(arr1,n,x-1);
+    
+}
+
+
+int main()
+{
+    int n;
+    cin>>n;
+    int arr[n];
+    for(int i=0;i<n;i++)
+    {
+        cin>>arr[i];
+    }
+    
+    radix(arr,n,3);
+    
+}
+
+
+/* 
+7
+170 45 75 90 802 24 2 66
+*/
