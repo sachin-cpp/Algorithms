@@ -1,0 +1,81 @@
+
+#include <limits.h> 
+#include <stdio.h> 
+#include <iostream>
+using namespace std;
+
+
+//same as Dijkstra , just removve the concept of visited array and use that for loop for relaxing nodes for (V-1) times.
+
+#define V 5
+
+int min(int dist[])
+{
+    int m = 1000;
+    int min_index=0;
+    for(int i=0;i<V;i++)
+    {
+        if(dist[i] < m)
+            {
+                m = dist[i];
+                min_index = i;
+            }
+        
+    }
+    return min_index;
+}
+void print(int dist[]) 
+{ 
+    for (int i = 0; i < V; i++)
+    {
+        cout<<dist[i]<<" ";
+    }
+
+        
+    
+} 
+
+void dijkstra(int graph[V][V], int src)
+{
+    int dist[V];
+    
+    
+    for(int i=0;i<V;i++)
+    {
+        dist[i] = 999 ;
+    }
+    dist[src] = 0;
+    
+    for(int u=0;u<V;u++)
+    {
+        //for(int count=0;count<V;count++)
+        {
+            //int u = min(dist);
+          
+            
+            for(int i=0;i<V;i++)
+            {
+                if((graph[u][i] != 0) && (dist[u] + graph[u][i] < dist[i]))
+                {
+                    dist[i] = dist[u] + graph[u][i];
+                }
+            }
+        }
+    }
+    print(dist);
+}
+ 
+int main() 
+{ 
+	
+	int graph[V][V] = { {0,-1,4,0,0},
+	    {0,0,3,2,2},
+	    {0,0,0,0,0},
+	    {0,1,0,0,0},
+	    {0,0,0,-3,0}
+	}; 
+
+	dijkstra(graph, 0); 
+
+	return 0; 
+} 
