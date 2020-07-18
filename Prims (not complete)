@@ -5,19 +5,20 @@ using namespace std;
 
 int min( bool visited[] , int dist[])
 {
-    int m = INT_MAX;
+    int m = 999;
     int min_index = 0 ;
     for(int i=0;i<V;i++)
     {
         if(visited[i] == false)
         {
-            if(m < dist[i])
+            if( dist[i] < m)
             {
                 m = dist[i];
                 min_index = i;
             }
         }
     }
+    return min_index;
 }
 
 void print(int dist[])
@@ -32,13 +33,15 @@ void prims(int graph[V][V] )
 {
     int dist[V];
     bool visited[V];
+    //int parent[V];
+    
     for(int i=0;i<V;i++)
     {
-        dist[i] = INT_MAX;
+        dist[i] = 999;
         visited[i] = false;
     }
     dist[0]=0;
-    
+    //parent[0] = -1;
     for(int i=0;i<V;i++)
     {
         int u = min(visited , dist);
@@ -49,9 +52,9 @@ void prims(int graph[V][V] )
         {
             if((graph[u][j] != 0)&& (visited[j] == false))
             {
-                if(graph[u][i] < dist[i])
+                if(graph[u][j] < dist[j])
                 {
-                    dist[i] = graph[u][i];
+                    dist[j] = graph[u][j];
                 }
             }
         }
