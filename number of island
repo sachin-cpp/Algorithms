@@ -1,0 +1,66 @@
+#include <iostream>
+#include<bits/stdc++.h>
+using namespace std;
+#define V 5
+
+void fun(int mat[V][V] , bool visited[V][V] , int u, int v)
+{
+    if((u<0)|| (v<0) || (u>=V) || (v>=V) || (mat[u][v] == 0) || (visited[u][v] == true))
+    {
+        return ;
+    }
+    
+    visited[u][v] = true;
+    
+    fun(mat,visited,u+1,v);
+    fun(mat,visited,u,v+1);
+    fun(mat,visited,u+1,v+1);
+    fun(mat,visited,u-1,v);
+    fun(mat,visited,u,v-1);
+    fun(mat,visited,u-1,v-1);
+    fun(mat,visited,u+1,v-1);
+    fun(mat,visited,u-1,v+1);
+}
+
+void island(int mat[V][V])
+{
+    bool visited[V][V];
+    
+    for(int i=0;i<V;i++)
+    {
+        for(int j=0;j<V;j++)
+        {
+            visited[i][j] = false;
+        }
+    }
+    int count =0;
+    for(int i=0;i<V;i++)
+    {
+        for(int j=0;j<V;j++)
+        {
+            if((mat[i][j] == 1)&&(visited[i][j] == false))
+            {
+                //visited[i][j] = true;
+                count++;
+                fun(mat,visited,i,j);
+            }
+        }
+    }
+    
+    
+    cout<<count<<endl;
+}
+
+int main() 
+{
+    
+	int mat[V][V] = {  {1, 1, 0, 0, 0},
+                       {0, 1, 0, 0, 1},
+                       {1, 0, 0, 1, 1},
+                       {0, 0, 0, 0, 0},
+                       {1, 0, 1, 0, 1} } ;
+               
+    island(mat);
+    
+	return 0;
+}
