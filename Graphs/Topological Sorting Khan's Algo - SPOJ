@@ -1,0 +1,61 @@
+#include <iostream>
+#include<bits/stdc++.h>
+using namespace std;
+
+vector<int> ar[100];
+vector<int> res;
+int in[100];
+
+
+void khan(int n)
+{
+	priority_queue<int,vector<int> , greater<int> > q;
+	for(int i=1;i<=n;i++)
+	{
+		if(in[i]==0) q.push(i);
+	}
+	while(!q.empty())
+	{
+		int cur=q.top();
+		res.push_back(cur);
+		q.pop();
+		for(int node:ar[cur])
+		{
+			in[node]--;
+			if(in[node]==0)
+			{
+				q.push(node);
+			}
+		}
+	}
+	if(res.size()==n)
+	{
+		
+		for(int k:res)
+		{
+			cout<<k<<" ";
+		}
+		cout<<endl;
+	}
+	else
+	{
+		cout<<"Sandro fails."<<endl;
+	}
+	
+}
+
+int main() {
+	// your code goes here
+	int n,m,x,y;
+	cin>>n>>m;
+	while(m--)
+	{
+		cin>>x>>y;
+		ar[x].push_back(y);
+		in[y]++;
+	}
+	khan(n);
+	return 0;
+}
+
+//1 7 8 4 6 3 5 2 
